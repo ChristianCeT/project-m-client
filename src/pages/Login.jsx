@@ -41,53 +41,62 @@ export default function Login() {
   };
 
   return (
-    <Container maxWidth="xs">
-      <Paper elevation={3} sx={{ p: 3, mt: 5 }}>
-        <Typography variant="h5" align="center" gutterBottom>
-          Iniciar sesión
-        </Typography>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Container maxWidth="xs">
+        <Paper elevation={3} sx={{ p: 3 }}>
+          <Typography variant="h5" align="center" gutterBottom>
+            Iniciar sesión
+          </Typography>
 
-        <Box component="form" onSubmit={handleSubmit} noValidate>
-          <TextField
-            label="Correo"
-            autoComplete="email"
-            type="email"
-            fullWidth
-            margin="normal"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            error={Boolean(errors.email)}
-            helperText={errors.email}
-          />
+          <Box component="form" onSubmit={handleSubmit} noValidate>
+            <TextField
+              label="Correo"
+              autoComplete="email"
+              type="email"
+              fullWidth
+              margin="normal"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              error={Boolean(errors.email)}
+              helperText={errors.email}
+            />
 
-          <TextField
-            label="Contraseña"
-            autoComplete="current-password"
-            type="password"
-            fullWidth
-            margin="normal"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            error={Boolean(errors.password)}
-            helperText={errors.password}
-          />
+            <TextField
+              label="Contraseña"
+              autoComplete="current-password"
+              type="password"
+              fullWidth
+              margin="normal"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              error={Boolean(errors.password)}
+              helperText={errors.password}
+            />
 
-          <Button
-            type="submit"
-            variant="contained"
-            fullWidth
-            sx={{ mt: 2 }}
-            style={{ color: "white" }}
-          >
-            Entrar
-          </Button>
-          {generalError && (
-            <Alert severity="error" sx={{ mt: 2 }}>
-              {generalError}
-            </Alert>
-          )}
-        </Box>
-      </Paper>
-    </Container>
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              sx={{ mt: 2, color: "white" }}
+            >
+              Entrar
+            </Button>
+
+            {generalError && (
+              <Alert severity="error" sx={{ mt: 2 }}>
+                {generalError}
+              </Alert>
+            )}
+          </Box>
+        </Paper>
+      </Container>
+    </Box>
   );
 }

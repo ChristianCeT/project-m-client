@@ -9,8 +9,12 @@ import {
   Typography,
   Divider,
   Box,
+  IconButton,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 
+import MenuIcon from "@mui/icons-material/Menu";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -27,31 +31,21 @@ const drawerWidth = 240;
 export default function Sidebar() {
   const navigate = useNavigate();
   const [openBiblioteca, setOpenBiblioteca] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const toggleBiblioteca = () => {
-    setOpenBiblioteca(!openBiblioteca);
-  };
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const toggleBiblioteca = () => setOpenBiblioteca(!openBiblioteca);
+  const toggleDrawer = () => setMobileOpen(!mobileOpen);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     navigate("/", { replace: true });
   };
 
-  return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        [`& .MuiDrawer-paper`]: {
-          width: drawerWidth,
-          boxSizing: "border-box",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-        },
-      }}
-    >
+  const drawerContent = (
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <Box>
         <Toolbar>
           <Typography variant="h6">📒Biblioteca</Typography>
@@ -59,7 +53,6 @@ export default function Sidebar() {
         <Divider />
 
         <List disablePadding>
-          {/* Menú con subitems */}
           <ListItemButton onClick={toggleBiblioteca}>
             <ListItemIcon>
               <LibraryBooksIcon color="primary" />
@@ -104,6 +97,37 @@ export default function Sidebar() {
           <ListItemText primary="Salir" />
         </ListItemButton>
       </Box>
-    </Drawer>
+    </Box>
+  );
+
+  return (
+    <>
+      {isMobile && (
+        <IconButton
+          onClick={toggleDrawer}
+          sx={{ position: "fixed", top: 10, left: 10, zIndex: 1301 }}
+          color="primary"
+        >
+          <MenuIcon />
+        </IconButton>
+      )}
+
+      <Drawer
+        variant={isMobile ? "temporary" : "permanent"}
+        open={isMobile ? mobileOpen : true}
+        onClose={toggleDrawer}
+        ModalProps={{ keepMounted: true }}
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+          },
+        }}
+      >
+        {drawerContent}
+      </Drawer>
+    </>
   );
 }

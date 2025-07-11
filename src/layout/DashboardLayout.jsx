@@ -4,28 +4,19 @@ import Sidebar from "../components/Sidebar";
 
 export default function DashboardLayout() {
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", overflowX: "hidden" }}>
       <Sidebar />
-
       <Box
         component="main"
         sx={{
           flexGrow: 1,
           p: 3,
 
-          minHeight: "100vh",
+          overflowX: "auto", // ✅ Muy importante aquí
         }}
       >
         <Toolbar />
-        <Box
-          sx={{
-            maxWidth: "1300px", // 💡 el ancho deseado del contenido
-            mx: "auto", // 💡 centra horizontalmente
-            width: "100%",
-          }}
-        >
-          <Outlet />
-        </Box>
+        <Outlet />
       </Box>
     </Box>
   );
