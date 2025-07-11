@@ -12,7 +12,7 @@ import {
   Alert,
 } from "@mui/material";
 
-export default function Home() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -33,7 +33,7 @@ export default function Home() {
     try {
       const user = await login(email, password);
       if (user) {
-        navigate("/menu", { replace: true });
+        navigate("/menu/books", { replace: true });
       }
     } catch (error) {
       setGeneralError(error.message);
@@ -72,7 +72,13 @@ export default function Home() {
             helperText={errors.password}
           />
 
-          <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{ mt: 2 }}
+            style={{ color: "white" }}
+          >
             Entrar
           </Button>
           {generalError && (
